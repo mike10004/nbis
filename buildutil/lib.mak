@@ -72,8 +72,17 @@ $(INSTALL_LIB_DIR)/$(LIBRARY).a: $(OBJFILES)
 	$(CP) $(INSTALL_LIB_DIR)/$(LIBRARY).a $(EXPORTS_LIB_DIR)
 #
 config:
+    @echo "TOP: "$(TOP)
+    @echo "DIR_ROOT: "$(DIR_ROOT)
+	@echo "DIR_SRC_LIB: "$(DIR_SRC_LIB)
+	@echo "DIR_OBJ_SRC_LIB: "$(DIR_OBJ_SRC_LIB)
+	@echo "CURDIR: "$(CURDIR)
+	@echo "OBJDIR: "$(OBJDIR)
+	@echo "DEPFILES: "$(DEPFILES)
 	@for depfile in $(DEPFILES); do \
 		echo "Creating \"$$depfile\"...."; \
+		echo "Checking whether "$(dir $$depfile)" exists..."
+		test -d $(dir $$depfile) || echo "IMPENDING ERROR: directory does not exist: "$(dir $$depfile) ; \
 		$(TOUCH) $$depfile; \
 	done
 #
