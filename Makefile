@@ -166,6 +166,7 @@ it:
 
 install-libnbis:
 	@echo "Start: Creating libnbis.a..."; 
+	$(MKDIR_P) -v $(INSTALL_ROOT_LIB_DIR)
 	$(RM) $(INSTALL_ROOT_LIB_DIR)/libnbis.a
 	@for package in $(PACKAGES); do \
 		$(AR) -r $(INSTALL_ROOT_LIB_DIR)/libnbis.a $$package/lib/*.a ; \
@@ -181,17 +182,11 @@ install-libnbis:
 #
 # ******************************************************************************
 
-install: install-mkdirs install-headers install-runtimedata install-libnbis install-bins install-man
-
-install-mkdirs:
-	@echo "Start: Checking Final Installation directories structure...."
-	@for dir in $(INSTALL_ROOT_INC_DIR) $(INSTALL_ROOT_BIN_DIR) $(INSTALL_ROOT_LIB_DIR) $(INSTALL_RUNTIME_DATA_DIR); do \
-		$(MKDIR_P) -v $$dir; \
-	done
-	@echo "End: Checking Final Installation directories structure."
+install: install-runtimedata install-bins install-man
 
 install-headers:
 	@echo "Start: Copying header files for each package to \"$(INSTALL_ROOT_INC_DIR)\"...."
+	$(MKDIR_P) -v $(INSTALL_ROOT_INC_DIR)
 	@for package in $(PACKAGES); do \
 		if [ $$package = "ijg" ]; then \
 #			echo "$(CP) -Rpf $(DIR_ROOT)/$$package/src/lib/jpegb/*.h $(INSTALL_ROOT_INC_DIR)"; \
@@ -206,11 +201,15 @@ install-headers:
 
 install-bins:
 	@echo "installation target directory: "$(INSTALL_ROOT_BIN_DIR)
+	$(MKDIR_P) -v $(INSTALL_ROOT_BIN_DIR)
 	@for package in $(PACKAGES); do \
 		if [ $$package != "ijg" -a $$package != "commonnbis" ]; then \
 			echo "installing " $$package/bin/* ; \
 			$(INSTALL_CMD) -t $(INSTALL_ROOT_BIN_DIR) $$package/bin/* || exit 1 ; \
 		fi ; \
+	done
+	@for ijgbinary in cjpeg djpeg jpegtran wrjpgcom rdjpgcom ; do \
+		$(INSTALL_CMD) -t $(INSTALL_ROOT_BIN_DIR) ijg/src/lib/jpegb/$$ijgbinary ; \
 	done
 
 install-man:
@@ -221,6 +220,7 @@ install-man:
 
 install-runtimedata:
 	@echo "Start: Copying runtime data directories to \"$(INSTALL_RUNTIME_DATA_DIR)\"...."
+	$(MKDIR_P) -v $(INSTALL_RUNTIME_DATA_DIR)
 	@for datadir in $(RUNTIME_DATA_PACKAGES); do \
 		echo "$(CP) -Rf $(DIR_ROOT)/$$datadir/$(RUNTIME_DATA_DIR) $(INSTALL_RUNTIME_DATA_DIR)/$$datadir"; \
 		($(CP) -Rf \
@@ -243,6 +243,7 @@ clean:
 		(cd $(DIR_ROOT)/$$package && $(MAKE) clean) || exit 1; \
 		echo "End: Cleaning up $$package."; \
 	done
+
 #
 # ******************************************************************************
 # 
