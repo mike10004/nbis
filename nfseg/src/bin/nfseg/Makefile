@@ -91,10 +91,10 @@ ifeq ($(NBIS_OPENJPEG_FLAG),-D__NBIS_OPENJPEG__)
 endif
 #
 ifeq ($(NBIS_PNG_FLAG),-D__NBIS_PNG__)
-LIBS	:= \
-	$(LIBS) \
-	$(EXPORTS_LIB_DIR)/libpng.a \
-	$(EXPORTS_LIB_DIR)/libz.a
+#~ LIBS	:= \
+	#~ $(LIBS) \
+	#~ $(EXPORTS_LIB_DIR)/libpng.a \
+	#~ $(EXPORTS_LIB_DIR)/libz.a
 endif
 #
 EXT_INCS	:= -I$(EXPORTS_INC_DIR)
