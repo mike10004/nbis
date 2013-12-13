@@ -200,7 +200,7 @@ install-headers:
 	@echo "End: Copying header files for each package to \"$(INSTALL_ROOT_INC_DIR)\"."
 
 install-bins:
-	@echo "installation target directory: "$(INSTALL_ROOT_BIN_DIR)
+	@echo "Start: Installing binaries to target directory: "$(INSTALL_ROOT_BIN_DIR)
 	$(MKDIR_P) -v $(INSTALL_ROOT_BIN_DIR)
 	@for package in $(PACKAGES); do \
 		if [ $$package != "ijg" -a $$package != "commonnbis" ]; then \
@@ -211,11 +211,12 @@ install-bins:
 	@for ijgbinary in cjpeg djpeg jpegtran wrjpgcom rdjpgcom ; do \
 		$(INSTALL_CMD) -t $(INSTALL_ROOT_BIN_DIR) ijg/src/lib/jpegb/$$ijgbinary ; \
 	done
+	@echo "End: Installing binaries"
 
 install-man:
 	@echo "Start: Copying manual directory to \"$(INSTALL_ROOT_MAN_DIR)\"...."
 	$(MKDIR_P) $(INSTALL_ROOT_MAN_DIR)
-	$(CP) -vpf $(MAN_DIR)/man1/* $(INSTALL_ROOT_MAN_DIR)/
+	$(INSTALL_CMD) -m0644 -t $(INSTALL_ROOT_MAN_DIR) $(MAN_DIR)/man1/* || exit 1
 	@echo "End: Copying manual directory to \"$(INSTALL_ROOT_MAN_DIR)\"."
 
 install-runtimedata:
@@ -227,6 +228,7 @@ install-runtimedata:
 			$(DIR_ROOT)/$$datadir/$(RUNTIME_DATA_DIR) \
 			$(INSTALL_RUNTIME_DATA_DIR)/$$datadir) || exit 1; \
 	done
+	find "$(INSTALL_RUNTIME_DATA_DIR)" -type f -print0 | xargs -0 chmod 0644
 	@echo "End: Copying runtime data directories to \"$(INSTALL_RUNTIME_DATA_DIR)\"."
 
 #
