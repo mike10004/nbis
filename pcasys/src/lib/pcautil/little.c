@@ -486,9 +486,14 @@ char *tilde_filename(char str[], const int add_path)
     sprintf(outstr, "%s/%s", homedir, str + 2);
   else if(add_path == 1)
     sprintf(outstr, "%s/%s", INSTALL_DATA_DIR, str);
-  else if(add_path == 2)
-    sprintf(outstr, "%s/%s", INSTALL_NBIS_DIR, str);
-  else if(add_path == 3)
+  else if(add_path == 2) {
+    //sprintf(outstr, "%s/%s", INSTALL_NBIS_DIR, str);
+    // mchaberski 20131213: This option would root the filename at 
+    // the directory of the sources from which the binaries were built. 
+    // Instead, we just collapse this into the same as add_path = 1, 
+    // where the runtime data directory is prepended. 
+    sprintf(outstr, "%s/%s", INSTALL_DATA_DIR, str);
+  } else if(add_path == 3)
   { 
     s = basename(str);
     sprintf(outstr, "./%s", s);
