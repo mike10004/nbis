@@ -245,6 +245,12 @@ clean:
 		(cd $(DIR_ROOT)/$$package && $(MAKE) clean) || exit 1; \
 		echo "End: Cleaning up $$package."; \
 	done
+	@find * -type f -name "*.d" -delete
+	$(RM) -r exports doc/catalogs
+	@for package in an2k bozorth3 commonnbis imgtools mindtct nfiq nfseg pcasys ; do \
+		$(RM) -r $$package/bin $$package/lib $$package/obj ; \
+	done
+	$(RM) -r ijg/dummy
 
 #
 # ******************************************************************************
