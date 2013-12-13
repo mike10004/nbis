@@ -149,6 +149,7 @@ config:
 		$(CAT)  $(DIR_ROOT)/$$package/p_rules.mak.src | \
 		$(SED) 's,SED_RULES_STRING,'$(DIR_ROOT)/rules.mak',' \
 		> $$package/p_rules.mak; \
+		$(SED) -i 's,SED_BUILD_UTIL_PLACEHOLDER,'$(DIR_ROOT_BUILDUTIL)',' $$package/p_rules.mak; \
 	done
 	@echo "End: Generating all the p_rules.mak."
 	@for package in $(PACKAGES); do \
