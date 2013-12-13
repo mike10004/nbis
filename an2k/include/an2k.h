@@ -65,8 +65,6 @@ of the software.
 #include <stdarg.h> /* Added by JCK on 03-06-08 - for varargs macros */
 #include <errno.h>  /* Added by JCK on 01-22-09 */
 
-#define AN2K_RUNTIME_DATA_DIR	RUNTIME_DATA_DIR "/an2k"
-
 #define SHORT_READ_ERR_MSG(fp) ((ferror(fp) != 0) ? strerror(errno) : "premature EOF")
 
 #define SHORT_SCAN_READ_ERR_MSG(fp, bdb) ((fp != NULL) ?		\
