@@ -61,52 +61,44 @@
 # This rules file contains all the necessary variables to build "NBIS".
 #
 # ******************************************************************************
+TOP := $(dir $(lastword $(MAKEFILE_LIST)))
+TOP := $(subst //,/,$(TOP))
+TOP := $(patsubst %/,%,$(TOP))
 SHELL	:= /bin/sh
+MKDIR_P                     := mkdir -p
 #
 # ------------------------------------------------------------------------------
 #
 PROJ_NAME	:= nbis
-MASTER_SRC_DIR  ?= $(PWD)
-BUILD_DIR       ?= $(PWD)/build
+
 DEBIAN_PKG_NAME := nbis
 
-
-
-RUNTIME_DATA_DIR ?= /usr/share/$(DEBIAN_PKG_NAME)
 #
 # ---------------------- Variables set by setup.sh------------------------------
 #
-PACKAGES			:= ijg png openjpeg commonnbis an2k bozorth3 imgtools mindtct nfseg nfiq pcasys
+PACKAGES			:= ijg commonnbis an2k bozorth3 imgtools mindtct nfseg nfiq pcasys
 #
-DIR_ROOT			:= $(MASTER_SRC_DIR)
-#FINAL_INSTALLATION_DIR          := $(BUILD_DIR)
-X11_FLAG			:= 1
+DIR_ROOT			:= $(TOP)
+X11_FLAG			:= 0
 X11_INC				:= /usr
 X11_LIB				:= /usr
 
 ENDIAN_FLAG			:= -D__NBISLE__
-#NBIS_JASPER_FLAG		:= SED_NBIS_JASPER_FLAG
 NBIS_OPENJPEG_FLAG		:= -D__NBIS_OPENJPEG__
 NBIS_PNG_FLAG			:= -D__NBIS_PNG__
 
-#ARCH_FLAG			:= SED_ARCH_FLAG
-
-#MSYS_FLAG			:= SED_MSYS_FLAG
-
-#OS_FLAG				:= SED_OS_FLAG
-#
-# ------------------------------------------------------------------------------
-#
-
 # DESTDIR defaults to empty string
 INSTALL_ROOT                    ?= $(DESTDIR)/usr
-INSTALL_ROOT_INC_DIR		:= $(INSTALL_ROOT)/include
+INSTALL_ROOT_INC_DIR		:= $(INSTALL_ROOT)/include/$(DEBIAN_PKG_NAME)
 INSTALL_ROOT_BIN_DIR		:= $(INSTALL_ROOT)/bin
 INSTALL_ROOT_LIB_DIR		:= $(INSTALL_ROOT)/lib/$(DEB_HOST_MULTIARCH)
 INSTALL_RUNTIME_DATA_DIR	:= $(INSTALL_ROOT)/share/$(DEBIAN_PKG_NAME)
+INSTALL_ROOT_MAN_DIR        := $(INSTALL_ROOT)/share/man/man1
 
-INSTALL_RUNTIME_DATA_DIR_FLAG   := -DINSTALL_RUNTIME_DATA_DIR="$(INSTALL_RUNTIME_DATA_DIR)"
-INSTALL_BIN_DIR_FLAG            := -DINSTALL_BIN_DIR="$(INSTALL_ROOT_BIN_DIR)"
+INSTALL_RUNTIME_DATA_DIR_FLAG   := -DINSTALL_RUNTIME_DATA_DIR=\"$(INSTALL_RUNTIME_DATA_DIR)\"
+INSTALL_BIN_DIR_FLAG            := -DINSTALL_BIN_DIR=\"$(INSTALL_ROOT_BIN_DIR)\"
+AN2K_RUNTIME_DATA_DIR  := $(INSTALL_RUNTIME_DATA_DIR)/an2k
+AN2K_RUNTIME_DATA_DIR_FLAG := -DAN2K_RUNTIME_DATA_DIR=\"$(AN2K_RUNTIME_DATA_DIR)\"
 #
 # ------------------------------------------------------------------------------
 #
@@ -150,11 +142,11 @@ DIR_ROOT_BUILDUTIL:= $(DIR_ROOT)/buildutil
 # ------------------------------------------------------------------------------
 #
 CC		:= $(shell which gcc)
-CFLAGS		:= -O2 -w -ansi -D_POSIX_SOURCE $(ENDIAN_FLAG) $(NBIS_JASPER_FLAG) $(NBIS_OPENJPEG_FLAG) $(NBIS_PNG_FLAG) $(ARCH_FLAG) $(INSTALL_RUNTIME_DATA_DIR_FLAG) $(INSTALL_BIN_DIR_FLAG)
+CFLAGS		:= -O2 -w -ansi -D_POSIX_SOURCE $(ENDIAN_FLAG) $(NBIS_JASPER_FLAG) $(NBIS_OPENJPEG_FLAG) $(NBIS_PNG_FLAG) $(ARCH_FLAG) $(INSTALL_RUNTIME_DATA_DIR_FLAG) $(INSTALL_BIN_DIR_FLAG) $(AN2K_RUNTIME_DATA_DIR_FLAG)
 #CFLAGS	:= -g $(ENDIAN_FLAG) $(NBIS_JASPER_FLAG) $(NBIS_PNG_FLAG) $(ARCH_FLAG)
 CDEFS		:=
 CCC		:= $(CC) $(CFLAGS) $(CDEFS)
-LDFLAGS		:= $(ARCH_FLAG)
+LDFLAGS		:= $(ARCH_FLAG) -lopenjpeg -lpng
 M		:= -M
 #M		:= -MM
 #
@@ -168,6 +160,7 @@ GROUP		:= $(shell id -gn)
 PERMS1	:= 755
 PERMS2	:= 644
 #
+INSTALL_CMD := $(shell which install)
 INSTALL		:= $(shell which install)
 INSTALL_BIN	:= $(INSTALL) -p -o $(OWNER) -g $(GROUP) -m $(PERMS1) 
 INSTALL_LIB	:= $(INSTALL) -p -o $(OWNER) -g $(GROUP) -m $(PERMS2)
