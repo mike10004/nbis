@@ -54,9 +54,9 @@ needed for FILE. */
  * from which the binaries were built in a pathname expansion.
  * See implementation of tilde_filename.
  */
-//#define INSTALL_DIR NBIS_INSTALL_DIR 
+/* #define INSTALL_DIR NBIS_INSTALL_DIR  */
 #define INSTALL_DATA_DIR INSTALL_RUNTIME_DATA_DIR
-//#define INSTALL_NBIS_DIR "SED_INSTALL_NBIS_DIR_STRING"
+/* #define INSTALL_NBIS_DIR "SED_INSTALL_NBIS_DIR_STRING" */
 
 extern int creat_ch(char *);
 extern void dptr2ptr_uchar(unsigned char **, unsigned char **, const int,
