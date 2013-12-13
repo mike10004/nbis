@@ -1,3 +1,6 @@
+# Compiler-generated files
+*.d
+
 # Object files
 *.o
 *.ko
@@ -16,3 +19,18 @@
 *.exe
 *.out
 *.app
+
+# weird NBIS stuff that appears
+an2k/bin/
+bozorth3/bin/
+exports/
+ijg/src/lib/jpegb/cjpeg
+ijg/src/lib/jpegb/djpeg
+ijg/src/lib/jpegb/jpegtran
+ijg/src/lib/jpegb/rdjpgcom
+ijg/src/lib/jpegb/wrjpgcom
+imgtools/bin/
+mindtct/bin/
+nfiq/bin/
+nfseg/bin/
+pcasys/bin/
