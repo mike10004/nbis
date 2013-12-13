@@ -54,4 +54,4 @@
 #
 # ******************************************************************************
 include ./p_rules.mak
-include $(DIR_ROOT_BUILDUTIL)/package.mak
+include $(DIR_ROOT)/buildutil/package.mak
