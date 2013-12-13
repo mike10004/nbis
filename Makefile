@@ -78,6 +78,7 @@
 # help -- print help manual.
 #
 # ******************************************************************************
+
 include ./rules.mak
 #
 # ******************************************************************************
@@ -86,11 +87,8 @@ include ./rules.mak
 # Target to make all libraries and executables.
 # 
 # ******************************************************************************
-all: \
-	config \
-	it \
-	install \
-	catalog
+all: config it
+
 #
 # ******************************************************************************
 #
@@ -99,6 +97,8 @@ all: \
 #
 # ******************************************************************************
 config:
+	@echo "TOP = "$(TOP)
+	@echo "DIR_ROOT = "$(DIR_ROOT)
 	@echo "Start: Checking \"$(PROJ_NAME)\" directory structure...."
 	@for dir in $(PACKAGES); do \
 		echo "Verifying directory - \"$(DIR_ROOT)/$$dir\":"; \
@@ -143,15 +143,6 @@ config:
 		fi; \
 	done
 	@echo "End: Checking exports and calatogs directories structure"
-	@echo "Start: Generating all the p_rules.mak."
-	@for package in $(PACKAGES); do \
-		echo "Generating $(DIR_ROOT)/$$package/p_rules.mak..."; \
-		$(CAT)  $(DIR_ROOT)/$$package/p_rules.mak.src | \
-		$(SED) 's,SED_RULES_STRING,'$(DIR_ROOT)/rules.mak',' \
-		> $$package/p_rules.mak; \
-		$(SED) -i 's,SED_BUILD_UTIL_PLACEHOLDER,'$(DIR_ROOT_BUILDUTIL)',' $$package/p_rules.mak; \
-	done
-	@echo "End: Generating all the p_rules.mak."
 	@for package in $(PACKAGES); do \
 		(cd $(DIR_ROOT)/$$package && $(MAKE) config) || exit 1; \
 	done
@@ -172,6 +163,15 @@ it:
 	@for package in $(PACKAGES); do \
 		(cd $(DIR_ROOT)/$$package && $(MAKE) bins) || exit 1; \
 	done
+
+install-libnbis:
+	@echo "Start: Creating libnbis.a..."; 
+	$(RM) $(INSTALL_ROOT_LIB_DIR)/libnbis.a
+	@for package in $(PACKAGES); do \
+		$(AR) -r $(INSTALL_ROOT_LIB_DIR)/libnbis.a $$package/lib/*.a ; \
+	done
+	@echo "End: Creating libnbis.a."; \
+
 #
 # ******************************************************************************
 #
@@ -180,67 +180,46 @@ it:
 # directory.
 #
 # ******************************************************************************
-install:
+
+install: install-mkdirs install-headers install-runtimedata install-libnbis install-bins install-man
+
+install-mkdirs:
 	@echo "Start: Checking Final Installation directories structure...."
 	@for dir in $(INSTALL_ROOT_INC_DIR) $(INSTALL_ROOT_BIN_DIR) $(INSTALL_ROOT_LIB_DIR) $(INSTALL_RUNTIME_DATA_DIR); do \
-		status=0; \
-		if [ ! -d $$dir ]; then \
-			echo "Creating \"$$dir\" directory...."; \
-			$(MKDIR) $$dir; \
-			echo "[PASSED]"; \
-			status=1; \
-		elif [ -d $$dir ]; then \
-			echo "Directory \"$$dir\" already exist:"; \
-			echo "[PASSED]"; \
-			status=1; \
-		fi; \
-		if [ $$status = 0 ]; then \
-			echo "[FAILED]"; \
-			exit 2; \
-		fi; \
+		$(MKDIR_P) -v $$dir; \
 	done
 	@echo "End: Checking Final Installation directories structure."
+
+install-headers:
 	@echo "Start: Copying header files for each package to \"$(INSTALL_ROOT_INC_DIR)\"...."
 	@for package in $(PACKAGES); do \
 		if [ $$package = "ijg" ]; then \
-			echo "$(CP) -Rpf $(DIR_ROOT)/$$package/src/lib/jpegb/*.h $(INSTALL_ROOT_INC_DIR)"; \
-			($(CP) -Rpf $(DIR_ROOT)/$$package/src/lib/jpegb/*.h $(INSTALL_ROOT_INC_DIR)) || exit 1; \
-		elif [ $$package = "jpeg2k" ]; then \
-			echo "$(CP) -Rpf $(DIR_ROOT)/$$package/src/lib/jpeg2k/*.h $(INSTALL_ROOT_INC_DIR)"; \
-			($(CP) -Rpf $(DIR_ROOT)/$$package/src/lib/jasper/src/libjasper/include/jasper $(INSTALL_ROOT_INC_DIR)) || exit 1; \
-			$(RM) $(EXPORTS_INC_DIR)/jasper/Makefile*; \
-		elif [ $$package = "png" ]; then \
-			echo "$(CP) -Rpf $(DIR_ROOT)/$$package/src/lib/png/*.h $(INSTALL_ROOT_INC_DIR)"; \
-			($(CP) -Rpf $(DIR_ROOT)/$$package/src/lib/png/*.h $(INSTALL_ROOT_INC_DIR)) || exit 1; \
-			echo "$(CP) -Rpf $(DIR_ROOT)/$$package/src/lib/zlib/*.h $(INSTALL_ROOT_INC_DIR)"; \
-			($(CP) -Rpf $(DIR_ROOT)/$$package/src/lib/zlib/*.h $(INSTALL_ROOT_INC_DIR)) || exit 1; \
-		elif [ $$package = "openjpeg" ]; then \
-			echo "$(CP) -Rpf $(DIR_ROOT)/$$package/src/lib/openjpeg/libopenjpeg/*.h $(INSTALL_ROOT_INC_DIR)/openjpeg"; \
-			$(MKDIR) $(INSTALL_ROOT_INC_DIR)/openjpeg; \
-			($(CP) -Rpf $(DIR_ROOT)/$$package/src/lib/openjpeg/libopenjpeg/*.h $(INSTALL_ROOT_INC_DIR)/openjpeg) || exit 1; \
-			echo "$(CP) -Rpf $(DIR_ROOT)/$$package/src/lib/openjpeg/codec/*.h $(INSTALL_ROOT_INC_DIR)/codec"; \
-			$(MKDIR) $(INSTALL_ROOT_INC_DIR)/codec; \
-			($(CP) -Rpf $(DIR_ROOT)/$$package/src/lib/openjpeg/codec/*.h $(INSTALL_ROOT_INC_DIR)/codec) || exit 1; \
+#			echo "$(CP) -Rpf $(DIR_ROOT)/$$package/src/lib/jpegb/*.h $(INSTALL_ROOT_INC_DIR)"; \
+			($(CP) -vRpf $(DIR_ROOT)/$$package/src/lib/jpegb/*.h $(INSTALL_ROOT_INC_DIR)) || exit 1; \
 		else \
-			echo "$(CP) -Rpf $(DIR_ROOT)/$$package/include/* $(INSTALL_ROOT_INC_DIR)"; \
-			($(CP) -Rpf $(DIR_ROOT)/$$package/include/* $(INSTALL_ROOT_INC_DIR)) || exit 1; \
+#			echo "$(CP) -Rpf $(DIR_ROOT)/$$package/include/* $(INSTALL_ROOT_INC_DIR)"; \
+			($(CP) -vRpf $(DIR_ROOT)/$$package/include/* $(INSTALL_ROOT_INC_DIR)) || exit 1; \
 		fi; \
 	done
 	$(RM) $(INSTALL_ROOT_INC_DIR)/little.h.src 
-	@echo "End: Copying header files for each package to \"$(INSTALL_RUNTIME_DATA_DIR)\"."
-	@echo "Start: Copying manual directory to \"$(FINAL_INSTALLATION_DIR)\"...."
-	@if [ ! -d $(FINAL_INSTALLATION_DIR)/man/man1 ]; then \
-		echo "Creating man/man1\" directory...."; \
-		$(MKDIR) $(FINAL_INSTALLATION_DIR)/man; \
-		$(MKDIR) $(FINAL_INSTALLATION_DIR)/man/man1; \
-	fi
-	@if [ "$(MAN_DIR)/man1" != "$(FINAL_INSTALLATION_DIR)/man/man1" ]; then \
-		echo "$(CP) -Rpf $(MAN_DIR)/man1 $(FINAL_INSTALLATION_DIR)/man/man1"; \
-		$(CP) -pf $(MAN_DIR)/man1/* $(FINAL_INSTALLATION_DIR)/man/man1; \
-	else \
-		echo "Copy ignored: identical files."; \
-	fi
-	@echo "End: Copying manual directory to \"$(FINAL_INSTALLATION_DIR)\"."
+	@echo "End: Copying header files for each package to \"$(INSTALL_ROOT_INC_DIR)\"."
+
+install-bins:
+	@echo "installation target directory: "$(INSTALL_ROOT_BIN_DIR)
+	@for package in $(PACKAGES); do \
+		if [ $$package != "ijg" -a $$package != "commonnbis" ]; then \
+			echo "installing " $$package/bin/* ; \
+			$(INSTALL_CMD) -t $(INSTALL_ROOT_BIN_DIR) $$package/bin/* || exit 1 ; \
+		fi ; \
+	done
+
+install-man:
+	@echo "Start: Copying manual directory to \"$(INSTALL_ROOT_MAN_DIR)\"...."
+	$(MKDIR_P) $(INSTALL_ROOT_MAN_DIR)
+	$(CP) -vpf $(MAN_DIR)/man1/* $(INSTALL_ROOT_MAN_DIR)/
+	@echo "End: Copying manual directory to \"$(INSTALL_ROOT_MAN_DIR)\"."
+
+install-runtimedata:
 	@echo "Start: Copying runtime data directories to \"$(INSTALL_RUNTIME_DATA_DIR)\"...."
 	@for datadir in $(RUNTIME_DATA_PACKAGES); do \
 		echo "$(CP) -Rf $(DIR_ROOT)/$$datadir/$(RUNTIME_DATA_DIR) $(INSTALL_RUNTIME_DATA_DIR)/$$datadir"; \
@@ -249,29 +228,7 @@ install:
 			$(INSTALL_RUNTIME_DATA_DIR)/$$datadir) || exit 1; \
 	done
 	@echo "End: Copying runtime data directories to \"$(INSTALL_RUNTIME_DATA_DIR)\"."
-	@for package in $(PACKAGES); do \
-		if [ $$package = "jpeg2k" ]; then \
-			echo "$(CP) -Rpf $(DIR_ROOT)/$$package/src/lib/jasper/bin/jasper $(FINAL_INSTALLATION_DIR)/bin/jp2codec"; \
-			($(CP) -Rpf $(DIR_ROOT)/$$package/src/lib/jasper/bin/jasper $(FINAL_INSTALLATION_DIR)/bin/jp2codec) || exit 1; \
-			echo "$(CP) -Rpf $(DIR_ROOT)/$$package/src/lib/jasper/bin/imgcmp $(FINAL_INSTALLATION_DIR)/bin/imgcmp"; \
-			($(CP) -Rpf $(DIR_ROOT)/$$package/src/lib/jasper/bin/imgcmp $(FINAL_INSTALLATION_DIR)/bin/.) || exit 1; \
-			echo "$(CP) -Rpf $(DIR_ROOT)/$$package/src/lib/jasper/bin/imginfo $(FINAL_INSTALLATION_DIR)/bin/imginfo"; \
-			($(CP) -Rpf $(DIR_ROOT)/$$package/src/lib/jasper/bin/imginfo $(FINAL_INSTALLATION_DIR)/bin/.) || exit 1; \
-		fi;\
-		(cd $(DIR_ROOT)/$$package && $(MAKE) install) || exit 1; \
-	done
 
-	@if [ "$(LIBNBIS)" = "yes" ]; then \
-		echo "Start: Creating libnbis.a..."; \
-		(cd $(FINAL_INSTALLATION_DIR)/lib && $(RM) libnbis.a) || exit 1; \
-		(cd $(FINAL_INSTALLATION_DIR)/lib && $(AR) -ru libnbis.a *.a) || exit 1; \
-		(cd $(FINAL_INSTALLATION_DIR)/lib && $(MV) libnbis.a libnbis.a.temp) || exit 1; \
-		(cd $(FINAL_INSTALLATION_DIR)/lib && $(RM) *.a) || exit 1; \
-		(cd $(FINAL_INSTALLATION_DIR)/lib && $(MV) libnbis.a.temp libnbis.a) || exit 1; \
-		echo "End: Creating libnbis.a."; \
-	else \
-		(cd $(FINAL_INSTALLATION_DIR)/lib && $(RM) libnbis.a) || exit 1; \
-	fi
 #
 # ******************************************************************************
 #
