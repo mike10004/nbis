@@ -53,7 +53,8 @@
 # Makefile contains the variables to build library - "libpcax".
 #
 # ******************************************************************************
-include ../../../p_rules.mak
+THIS_DIR := $(dir ./$(lastword $(MAKEFILE_LIST)))
+include $(THIS_DIR)/../../../p_rules.mak
 #
 LIBRARY	:= libpcax
 #

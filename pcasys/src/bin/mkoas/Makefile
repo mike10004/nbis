@@ -84,9 +84,9 @@ LIBS	:= \
 endif
 #
 ifeq ($(NBIS_OPENJPEG_FLAG),-D__NBIS_OPENJPEG__)
-LIBS	:= \
-	$(LIBS) \
-	$(EXPORTS_LIB_DIR)/libopenjpeg.a
+#~ LIBS	:= \
+	#~ $(LIBS) \
+	#~ $(EXPORTS_LIB_DIR)/libopenjpeg.a
 endif
 #
 ifeq ($(NBIS_PNG_FLAG),-D__NBIS_PNG__)

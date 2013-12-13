@@ -57,7 +57,8 @@
 # Makefile contains the variables to build binary - "pcasysx".
 #
 # ******************************************************************************
-include ../../../p_rules.mak
+THIS_DIR := $(dir ./$(lastword $(MAKEFILE_LIST)))
+include $(THIS_DIR)/../../../p_rules.mak
 #
 PROGRAM	:= pcasysx
 #
@@ -86,9 +87,9 @@ LIBS	:= \
 endif
 #
 ifeq ($(NBIS_OPENJPEG_FLAG),-D__NBIS_OPENJPEG__)
-LIBS	:= \
-	$(LIBS) \
-	$(EXPORTS_LIB_DIR)/libopenjpeg.a
+#~ LIBS	:= \
+	#~ $(LIBS) \
+	#~ $(EXPORTS_LIB_DIR)/libopenjpeg.a
 endif
 #
 ifeq ($(NBIS_PNG_FLAG),-D__NBIS_PNG__)
