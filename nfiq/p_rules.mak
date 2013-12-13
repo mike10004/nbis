@@ -49,17 +49,18 @@
 #
 # ******************************************************************************
 #
-# This rules file contains all the necessary variables to build "mindtct".
+# This rules file contains all the necessary variables to build "nfiq".
 #
 # ******************************************************************************
-include SED_RULES_STRING
+THIS_DIR = $(subst //,/,$(dir $(CURDIR)/$(lastword $(MAKEFILE_LIST))))
+include $(THIS_DIR)/../rules.mak
 #
 # ------------------------------------------------------------------------------
 #
-PACKAGE		:= mindtct
-PROGRAMS	:= mindtct
-LIBRARYS	:= mindtct
-LIBRARY_NAMES	:= $(LIBRARYS:%=lib%.a)
+PACKAGE		:= nfiq
+PROGRAMS	:= fing2pat nfiq znormdat znormpat
+LIBRARYS	:= nfiq
+LIBRARY_NAMES:= $(LIBRARYS:%=lib%.a)
 #
 # ------------------------------------------------------------------------------
 #

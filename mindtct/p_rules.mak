@@ -41,29 +41,25 @@
 #
 #*******************************************************************************
 # Project:              NIST Fingerprint Software
-# SubTree:              /NBIS/Main/an2k
 # Filename:             p_rules.mak.src
 # Integrators:          Kenneth Ko
 # Organization:         NIST/ITL
 # Host System:          GNU GCC/GMAKE GENERIC (UNIX)
 # Date Created:         08/20/2006
-# Date Updated:         01/31/2008 (Kenneth Ko)
-#                       09/03/2008 (Kenneth Ko)
-#                       09/29/2008 (Kenneth Ko)
 #
 # ******************************************************************************
 #
-# This rules file contains all the necessary variables to build "an2k".
+# This rules file contains all the necessary variables to build "mindtct".
 #
 # ******************************************************************************
-include SED_RULES_STRING
+THIS_DIR = $(subst //,/,$(dir $(CURDIR)/$(lastword $(MAKEFILE_LIST))))
+include $(THIS_DIR)/../rules.mak
 #
 # ------------------------------------------------------------------------------
 #
-PACKAGE		:= an2k
-PROGRAMS	:= an2k2iaf an2k2txt an2ktool chkan2k cropcoeff dpyan2k \
-	           histogen iaf2an2k txt2an2k
-LIBRARYS	:= an2k
+PACKAGE		:= mindtct
+PROGRAMS	:= mindtct
+LIBRARYS	:= mindtct
 LIBRARY_NAMES	:= $(LIBRARYS:%=lib%.a)
 #
 # ------------------------------------------------------------------------------
@@ -84,7 +80,7 @@ DIR_BIN		:= $(DIR_ROOT_PACKAGE)/bin
 DIR_LIB		:= $(DIR_ROOT_PACKAGE)/lib
 #
 DIR_SRC_BIN_ALL	:= $(PROGRAMS:%=$(DIR_SRC_BIN)/%)
-DIR_SRC_LIB_ALL	:= $(LIBRARYS:%=$(DIR_SRC_LIB)/%)
+DIR_SRC_LIB_ALL := $(LIBRARYS:%=$(DIR_SRC_LIB)/%)
 #
 BASE_DIR := \
 	$(DIR_SRC) \
@@ -93,6 +89,7 @@ BASE_DIR := \
 	$(DIR_SRC_LIB_ALL) \
 	$(DIR_SRC_BIN_ALL)
 #
+# ------------------------------------------------------------------------------
 #
 DIR_OBJ_SRC	:= $(DIR_OBJ)/src
 DIR_OBJ_SRC_BIN	:= $(DIR_OBJ_SRC)/bin

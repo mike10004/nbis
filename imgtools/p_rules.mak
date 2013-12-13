@@ -41,7 +41,6 @@
 #
 #*******************************************************************************
 # Project:              NIST Fingerprint Software
-# SubTree:              /NBIS/Main/bozorth3
 # Filename:             p_rules.mak.src
 # Integrators:          Kenneth Ko
 # Organization:         NIST/ITL
@@ -50,16 +49,19 @@
 #
 # ******************************************************************************
 #
-# This rules file contains all the necessary variables to build "bozorth3".
+# This rules file contains all the necessary variables to build "imgtools".
 #
 # ******************************************************************************
-include SED_RULES_STRING
+THIS_DIR = $(subst //,/,$(dir $(CURDIR)/$(lastword $(MAKEFILE_LIST))))
+include $(THIS_DIR)/../rules.mak
 #
 # ------------------------------------------------------------------------------
 #
-PACKAGE		:= bozorth3
-PROGRAMS	:= bozorth3
-LIBRARYS	:= bozorth3
+PACKAGE		:= imgtools
+PROGRAMS	:= cjpegb cjpegl cwsq diffbyts djpegb djpegl \
+		djpeglsd dlwsqcom dpyimage dwsq dwsq14 intr2not not2intr \
+		rdimgwh rdwsqcom rgb2ycc sd_rfmt wrwsqcom ycc2rgb
+LIBRARYS	:= ihead image jpegl wsq
 LIBRARY_NAMES	:= $(LIBRARYS:%=lib%.a)
 #
 # ------------------------------------------------------------------------------

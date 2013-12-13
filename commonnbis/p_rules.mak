@@ -41,47 +41,65 @@
 #
 #*******************************************************************************
 # Project:              NIST Fingerprint Software
-# SubTree:              /NBIS/Main/ijg
 # Filename:             p_rules.mak.src
 # Integrators:          Kenneth Ko
 # Organization:         NIST/ITL
 # Host System:          GNU GCC/GMAKE GENERIC (UNIX)
 # Date Created:         08/20/2006
+# Date Updated:		02/23/2007
 #
 # ******************************************************************************
 #
-# This rules file contains all the necessary variables to build "ijg".
+# This rules file contains all the necessary variables to build "commonnbis".
 #
 # ******************************************************************************
-include SED_RULES_STRING
+THIS_DIR = $(subst //,/,$(dir $(CURDIR)/$(lastword $(MAKEFILE_LIST))))
+include $(THIS_DIR)/../rules.mak
 #
 # ------------------------------------------------------------------------------
 #
-PACKAGE		:= ijg
-PROGRAMS	:= cjpeg djpeg jpegtran rdjpgcom wrjpgcom
-LIBRARYS	:= jpegb
+PACKAGE		:= commonnbis
+PROGRAMS	:= dummy
+LIBRARYS	:= cblas clapck f2c fet fft ioutil util
+#
 LIBRARY_NAMES	:= $(LIBRARYS:%=lib%.a)
 #
 # ------------------------------------------------------------------------------
 #
 DIR_ROOT_PACKAGE	:= $(DIR_ROOT)/$(PACKAGE)
-INSTALL_BIN_DIR		:=
-INSTALL_LIB_DIR		:=
+INSTALL_BIN_DIR		:= $(DIR_ROOT_PACKAGE)/bin
+INSTALL_LIB_DIR		:= $(DIR_ROOT_PACKAGE)/lib
 #
 # ------------------------------------------------------------------------------
 #
-DIR_INC		:=
 DIR_SRC		:= $(DIR_ROOT_PACKAGE)/src
+DIR_INC		:= $(DIR_ROOT_PACKAGE)/include
+DIR_SRC_BIN	:= $(DIR_SRC)/bin
 DIR_SRC_LIB	:= $(DIR_SRC)/lib
+#
+DIR_OBJ		:= $(DIR_ROOT_PACKAGE)/obj
+DIR_BIN		:= $(DIR_ROOT_PACKAGE)/bin
+DIR_LIB		:= $(DIR_ROOT_PACKAGE)/lib
+#
+DIR_SRC_BIN_ALL	:= $(PROGRAMS:%=$(DIR_SRC_BIN)/%)
+DIR_SRC_LIB_ALL := $(LIBRARYS:%=$(DIR_SRC_LIB)/%)
 #
 BASE_DIR := \
 	$(DIR_SRC) \
+	$(DIR_SRC_BIN) \
 	$(DIR_SRC_LIB) \
-	$(DIR_SRC_LIB)/$(LIBRARYS)
+	$(DIR_SRC_LIB_ALL)
 #
 # ------------------------------------------------------------------------------
 #
-OBJ_BASE_DIR	:= dummy
+DIR_OBJ_SRC	:= $(DIR_OBJ)/src
+DIR_OBJ_SRC_BIN	:= $(DIR_OBJ_SRC)/bin
+DIR_OBJ_SRC_LIB	:= $(DIR_OBJ_SRC)/lib
+#
+DIR_OBJ_SRC_BIN_ALL	:= $(PROGRAMS:%=$(DIR_OBJ_SRC_BIN)/%)
+DIR_OBJ_SRC_LIB_ALL	:= $(LIBRARYS:%=$(DIR_OBJ_SRC_LIB)/%)
+#
+OBJ_BASE_DIR	:= $(DIR_OBJ) $(subst $(DIR_SRC),$(DIR_OBJ_SRC),$(BASE_DIR))
 #
 # ------------------------------------------------------------------------------
 #

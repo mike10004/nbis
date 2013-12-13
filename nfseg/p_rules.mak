@@ -41,7 +41,7 @@
 #
 #*******************************************************************************
 # Project:              NIST Fingerprint Software
-# SubTree:              /NBIS/Main/pcasys
+# SubTree:              /NBIS/Main/nfseg
 # Filename:             p_rules.mak.src
 # Integrators:          Kenneth Ko
 # Organization:         NIST/ITL
@@ -50,19 +50,17 @@
 #
 # ******************************************************************************
 #
-# This rules file contains all the necessary variables to build "pcasys".
+# This rules file contains all the necessary variables to build "nfseg".
 #
 # ******************************************************************************
-include SED_RULES_STRING
+THIS_DIR = $(subst //,/,$(dir $(CURDIR)/$(lastword $(MAKEFILE_LIST))))
+include $(THIS_DIR)/../rules.mak
 #
 # ------------------------------------------------------------------------------
 #
-PACKAGE		:= pcasys
-PROGRAMS	:= asc2bin bin2asc chgdesc cmbmcs datainfo \
-		eva_evt fixwts kltran lintran meancov mkoas \
-		mktran mlp mlpfeats oas2pics optosf optrws \
-		optrwsgw pcasys rwpics stackms
-LIBRARYS	:= mlp pca pcautil
+PACKAGE		:= nfseg
+PROGRAMS	:= nfseg
+LIBRARYS	:= nfseg
 LIBRARY_NAMES	:= $(LIBRARYS:%=lib%.a)
 #
 # ------------------------------------------------------------------------------
@@ -92,7 +90,7 @@ BASE_DIR := \
 	$(DIR_SRC_LIB_ALL) \
 	$(DIR_SRC_BIN_ALL)
 #
-# ------------------------------------------------------------------------------
+#-------------------------------------------------------------------
 #
 DIR_OBJ_SRC	:= $(DIR_OBJ)/src
 DIR_OBJ_SRC_BIN	:= $(DIR_OBJ_SRC)/bin

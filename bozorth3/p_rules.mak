@@ -41,7 +41,7 @@
 #
 #*******************************************************************************
 # Project:              NIST Fingerprint Software
-# SubTree:              /NBIS/Main/nfseg
+# SubTree:              /NBIS/Main/bozorth3
 # Filename:             p_rules.mak.src
 # Integrators:          Kenneth Ko
 # Organization:         NIST/ITL
@@ -50,16 +50,17 @@
 #
 # ******************************************************************************
 #
-# This rules file contains all the necessary variables to build "nfseg".
+# This rules file contains all the necessary variables to build "bozorth3".
 #
 # ******************************************************************************
-include SED_RULES_STRING
+THIS_DIR = $(subst //,/,$(dir $(CURDIR)/$(lastword $(MAKEFILE_LIST))))
+include $(THIS_DIR)/../rules.mak
 #
 # ------------------------------------------------------------------------------
 #
-PACKAGE		:= nfseg
-PROGRAMS	:= nfseg
-LIBRARYS	:= nfseg
+PACKAGE		:= bozorth3
+PROGRAMS	:= bozorth3
+LIBRARYS	:= bozorth3
 LIBRARY_NAMES	:= $(LIBRARYS:%=lib%.a)
 #
 # ------------------------------------------------------------------------------
@@ -89,7 +90,7 @@ BASE_DIR := \
 	$(DIR_SRC_LIB_ALL) \
 	$(DIR_SRC_BIN_ALL)
 #
-#-------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 #
 DIR_OBJ_SRC	:= $(DIR_OBJ)/src
 DIR_OBJ_SRC_BIN	:= $(DIR_OBJ_SRC)/bin
