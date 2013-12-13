@@ -62,7 +62,7 @@ of the software.
 #include <jpeg2k.h>
 
 #ifdef __NBIS_OPENJPEG__
-	#include "openjpeg/openjpeg.h"
+	#include "openjpeg.h"
 #endif
 
 #ifdef __NBIS_JASPER__

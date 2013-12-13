@@ -61,7 +61,7 @@ of the software.
 #endif
 
 #ifdef __NBIS_OPENJPEG__
-	#include <openjpeg/openjpeg.h>
+	#include <openjpeg.h>
 #endif
 
 /*********************************************************************/
