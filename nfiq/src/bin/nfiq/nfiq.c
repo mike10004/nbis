@@ -590,7 +590,7 @@ void usage(void)
    (void)fprintf(stderr, "   Usage:\n\
    %s [options] <fingimage in> [<fingimage out>]\n\
       -d               default - print only the image quality value,\n\
-                       preceeded by the ANSI/NIST record number if applicable\n\
+                       preceded by the ANSI/NIST record number if applicable\n\
       -v               verbose - print all the feature vectors, image quality\n\
                        value, and network activation values\n\
       -o               old behavior - print values for only the first\n\
