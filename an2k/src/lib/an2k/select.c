@@ -581,7 +581,7 @@ int select_ANSI_NIST_record(RECORD *record,
 	   if (subfield_i > 0) 
 	      fprintf(stderr, "WARNING : select.c : "
 		      "NQM subfield %d > 1, handling of multiple finger slaps "
-		      "not completly implemented", subfield_i+1);
+		      "not completely implemented", subfield_i+1);
 	   if (criteria->value.num == new_nfiq_int)
 	      return TRUE;
 	}
@@ -607,7 +607,7 @@ int select_ANSI_NIST_record(RECORD *record,
 	   if (subfield_i > 0) 
 	      fprintf(stderr, "WARNING : select.c : "
 		      "POS subfield %d > 1, handling of multiple finger slaps "
-		      "not completly implemented", subfield_i+1);
+		      "not completely implemented", subfield_i+1);
 	   if (criteria->value.num == new_pos_int)
 	      return TRUE;
 	}
