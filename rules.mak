@@ -166,11 +166,13 @@ DIR_ROOT_BUILDUTIL:= $(DIR_ROOT)/buildutil
 # ------------------------------------------------------------------------------
 #
 CC		:= $(shell which gcc)
+DEB_BUILD_HARDENING := 1
+DEB_BUILD_HARDENING_FORTIFY := 1
 CFLAGS		:= -O2 -w -ansi -D_POSIX_SOURCE $(ENDIAN_FLAG) $(NBIS_JASPER_FLAG) $(NBIS_OPENJPEG_FLAG) $(NBIS_PNG_FLAG) $(ARCH_FLAG) $(INSTALL_RUNTIME_DATA_DIR_FLAG) $(INSTALL_BIN_DIR_FLAG) $(AN2K_RUNTIME_DATA_DIR_FLAG)
 #CFLAGS	:= -g $(ENDIAN_FLAG) $(NBIS_JASPER_FLAG) $(NBIS_PNG_FLAG) $(ARCH_FLAG)
 CDEFS		:=
 CCC		:= $(CC) $(CFLAGS) $(CDEFS)
-LDFLAGS		:= $(ARCH_FLAG) -lopenjpeg -lpng
+LDFLAGS	:= $(LDFLAGS) $(ARCH_FLAG) -lopenjpeg -lpng
 M		:= -M
 #M		:= -MM
 #
