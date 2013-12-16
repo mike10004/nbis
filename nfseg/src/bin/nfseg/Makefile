@@ -98,7 +98,6 @@ LIBS	:= $(EXPORTS_LIB_DIR)/libnfseg.a \
 	$(EXPORTS_LIB_DIR)/libioutil.a \
 	$(EXPORTS_LIB_DIR)/libutil.a \
 	$(EXPORTS_LIB_DIR)/libpcautil.a \
-	$(EXPORTS_LIB_DIR)/libjpegb.a \
 	$(EXPORTS_LIB_DIR)/libwsq.a
 
 #
@@ -123,7 +122,7 @@ endif
 #
 EXT_INCS	:= -I$(EXPORTS_INC_DIR)
 #
-EXT_LIBS	:=  -lm
+EXT_LIBS	:=  -lm -ljpeg
 
 ifeq ($(MSYS_FLAG),-D__MSYS__)
 EXT_LIBS	:= \

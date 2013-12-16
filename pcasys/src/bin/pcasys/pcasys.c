@@ -66,7 +66,7 @@ of the software.
 #include <usagemcs.h>
 #include <little.h>
 #include <jpegl.h>
-#include <jpegb.h>
+/* #include <jpegb.h> */
 #include <wsq.h>
 #include <nistcom.h>
 #include <memalloc.h>

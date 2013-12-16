@@ -232,9 +232,9 @@ install-bins:
 			$(INSTALL_CMD) -t $(INSTALL_ROOT_BIN_DIR) $$package/bin/* || exit 1 ; \
 		fi ; \
 	done
-	@for ijgbinary in cjpeg djpeg jpegtran wrjpgcom rdjpgcom ; do \
-		$(INSTALL_CMD) -t $(INSTALL_ROOT_BIN_DIR) ijg/src/lib/jpegb/$$ijgbinary ; \
-	done
+#	@for ijgbinary in cjpeg djpeg jpegtran wrjpgcom rdjpgcom ; do \
+#		$(INSTALL_CMD) -t $(INSTALL_ROOT_BIN_DIR) ijg/src/lib/jpegb/$$ijgbinary ; \
+#	done
 	@echo "End: Installing binaries"
 
 install-man:
@@ -274,7 +274,7 @@ clean:
 	@for package in an2k bozorth3 commonnbis imgtools mindtct nfiq nfseg pcasys ; do \
 		$(RM) -r $$package/bin $$package/lib $$package/obj ; \
 	done
-	$(RM) -r ijg/dummy
+#	$(RM) -r ijg/dummy
 
 #
 # ******************************************************************************

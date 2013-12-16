@@ -165,10 +165,15 @@ int jpeg_type(int *img_type, unsigned char *idata, const int ilen)
          *img_type = JPEGL_IMG;
          return(0);
       }
+      /*
+       * 20131216 MC removed support for JPEGB
+       *
       else if(marker == SOF0){
          *img_type = JPEGB_IMG;
          return(0);
       }
+       */
+       
       /* Skip marker segment. */
       if((ret = getc_skip_marker_segment(marker, &cbufptr, ebufptr)))
          return(ret);

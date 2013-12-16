@@ -100,7 +100,7 @@ DEBIAN_PKG_NAME := nbis
 #
 # ---------------------- Variables set by setup.sh------------------------------
 #
-PACKAGES			:= ijg commonnbis an2k bozorth3 imgtools mindtct nfseg nfiq pcasys
+PACKAGES			:= commonnbis an2k bozorth3 imgtools mindtct nfseg nfiq pcasys
 #
 DIR_ROOT			:= $(TOP)
 X11_FLAG			:= 0

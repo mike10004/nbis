@@ -84,6 +84,7 @@ of the software.
    #include <jpeg2k.h>
 #endif
 #ifdef __NBIS_OPENJPEG__
+   /* MC: this seems like it should be #include <openjpeg.h>... */
    #include <jpeg2k.h>
 #endif
 
@@ -332,6 +333,9 @@ int read_and_decode_image(char *ifile, int *oimg_type,
            }
            free_IMG_DAT(img_dat, FREE_IMAGE);
            break;
+/* ************************
+ * 20131216 MC removed support for JPEGB
+ * ************************
       case JPEGB_IMG:
            if((ret = jpegb_decode_mem(&ndata, &w, &h, &d, &ppi, &lossyflag,
                                      idata, ilen))){
@@ -359,6 +363,7 @@ int read_and_decode_image(char *ifile, int *oimg_type,
               vrt_sampfctr[i] = 1;
            }
            break;
+ */
       case IHEAD_IMG:
            if((ret = ihead_decode_mem(&ndata, &w, &h, &d, &ppi, &lossyflag,
                                      idata, ilen))){

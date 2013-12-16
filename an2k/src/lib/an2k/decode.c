@@ -69,7 +69,7 @@ of the software.
 
 #include <an2k.h>
 #include <wsq.h>
-#include <jpegb.h>
+/* #include <jpegb.h> */
 #include <jpegl.h>
 #include <intrlv.h>
 #include <defs.h>
@@ -550,15 +550,19 @@ int decode_tagged_field_image(unsigned char **odata,
          return(ret);
    }
    /* If JPEGB compressed ... */
+   
+   /* **************************************
+    * 20131216 MC removed support for JPEGB
+    * ************************************** 
    else if(strcmp(img_comp, COMP_JPEGB) == 0){
       if((ret = jpegb_decode_mem(&idata2, &iw2, &ih2, &id2, &ppi, &lossyflag,
                                  idata1, ilen1)) != 0)
          return(ret);
       /* For 3 component color, JPEGB's decoder returns interleaved RGB. */
       /* So, if flag set to NOT interleaved ... */
-      if((id2 == 24) && (intrlvflag == 0)){
-         /* There is no downsampling of RGB planes. */
-         n_cmpnts = 3;
+      /* if((id2 == 24) && (intrlvflag == 0)){ */
+         /* There is no downsampling of RGB planes. */ /*
+         n_cmpnts = 3; 
          for(i = 0; i < n_cmpnts; i++){
             hor_sampfctr[i] = 1;
             vrt_sampfctr[i] = 1;
@@ -573,6 +577,7 @@ int decode_tagged_field_image(unsigned char **odata,
          ilen2 = ilen1;
       }
    }
+   */
    /* If JPEGL compressed ... */
    else if(strcmp(img_comp, COMP_JPEGL) == 0){
       if((ret = jpegl_decode_mem(&img_dat, &lossyflag, idata1, ilen1)) != 0)

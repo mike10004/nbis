@@ -52,7 +52,7 @@ of the software.
 /* UPDATED: 01/06/2009 by Kenneth Ko - add support for HPUX compile */
 
 #include <wsq.h>
-#include <jpegb.h>
+/* #include <jpegb.h> */
 #include <jpegl.h>
 #include <ihead.h>
 #include <an2k.h>

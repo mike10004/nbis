@@ -82,9 +82,9 @@ include $(THIS_DIR)/../rules.mak
 # ------------------------------------------------------------------------------
 #
 PACKAGE		:= imgtools
-PROGRAMS	:= cjpegb cjpegl cwsq diffbyts djpegb djpegl \
+PROGRAMS	:= cjpegl cwsq diffbyts djpegl \
 		djpeglsd dlwsqcom dpyimage dwsq dwsq14 intr2not not2intr \
-		rdimgwh rdwsqcom rgb2ycc sd_rfmt wrwsqcom ycc2rgb
+		rdwsqcom rgb2ycc sd_rfmt wrwsqcom ycc2rgb
 LIBRARYS	:= ihead image jpegl wsq
 LIBRARY_NAMES	:= $(LIBRARYS:%=lib%.a)
 #

@@ -79,7 +79,7 @@ of the software.
 #include <img_io.h>
 #include <imgtype.h>
 #include <wsq.h>
-#include <jpegb.h>
+/* #include <jpegb.h> */
 #include <jpegl.h>
 #include <jpeglsd4.h>
 #include <ihead.h>
@@ -206,7 +206,9 @@ int read_and_decode_pcasys(char *ifile, unsigned char **odata, int *ow,
               class = *oclass;
            }
            break;
-
+/* ***************************
+ * 20131216 MC removed support for JPEGB
+ * ***************************
       case JPEGB_IMG:
            if((ret = jpegb_decode_mem(&ndata, &w, &h, &d, &ppi, &lossyflag,
                                      idata, ilen))){
@@ -241,7 +243,7 @@ int read_and_decode_pcasys(char *ifile, unsigned char **odata, int *ow,
               class = *oclass;
            }
            break;
-
+*/
 #ifdef __NBIS_JASPER__
       case JP2_IMG:
            if((ret = jpeg2k_decode_mem(&img_dat, &lossyflag, idata, ilen))){

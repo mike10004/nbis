@@ -90,7 +90,6 @@ LIBS	= $(EXPORTS_LIB_DIR)/liban2k.a \
 	$(EXPORTS_LIB_DIR)/libihead.a \
 	$(EXPORTS_LIB_DIR)/libwsq.a \
 	$(EXPORTS_LIB_DIR)/libjpegl.a \
-	$(EXPORTS_LIB_DIR)/libjpegb.a \
 	$(EXPORTS_LIB_DIR)/libfet.a \
 	$(EXPORTS_LIB_DIR)/libioutil.a \
 	$(EXPORTS_LIB_DIR)/libutil.a
@@ -116,7 +115,7 @@ endif
 #
 EXT_INCS	:= -I$(EXPORTS_INC_DIR)
 #
-EXT_LIBS	:= -lm
+EXT_LIBS	:= -lm -ljpeg -lopenjpeg
 #
 include $(DIR_ROOT_BUILDUTIL)/bin.mak
 
