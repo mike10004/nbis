@@ -240,8 +240,10 @@ install-bins:
 install-man:
 	@echo "Start: Installing man pages to \"$(INSTALL_ROOT_MAN_DIR)\"...."
 	$(MKDIR_P) $(INSTALL_ROOT_MAN_DIR)
-	@cd $(MAN_DIR)
-	$(INSTALL_CMD) -m0644 -t $(INSTALL_ROOT_MAN_DIR) $(MAN_PAGES) || exit 1
+	@for manpage in $(MANPAGES) ; do \
+		$(INSTALL_CMD) -m0644 -t $(INSTALL_ROOT_MAN_DIR) \
+				$(MAN_SRC_DIR)/$$manpage || exit 1 ; \
+	done
 	@echo "End: Installing man pages to \"$(INSTALL_ROOT_MAN_DIR)\"."
 
 install-runtimedata:
