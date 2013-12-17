@@ -1,5 +1,6 @@
 nbis (4.2.0-1) unstable; urgency=low
 
+   * Initial release (Closes: #12)
    * added line that substitutes appropriate buildutil path into 
    p_rules.mak files
    * tilde_filename: collapsed add_path=2 option into add_path=1; i.e. 
@@ -50,6 +51,16 @@ nbis (4.2.0-1) unstable; urgency=low
    removes support for JPEG-Baseline, a popular image format, but the 
    lintian error (tag embedded-library) would have caused a build 
    failure on Launchpad
-   * Initial release (Closes: #12)
-
+   * fixed spelling errors in chkan2k.1, pcasys.1, nfiq.c
+   * added debian watch file
+   * replaced bad groff_man macros with alternatives; not sure what 
+   original meaning was in all cases, but this should resolve most of 
+   issue #10 (except for the error regarding record_selector.1)
+   * added missing man pages for dlwsqcom and optrwsgw (issue #6)
+   * replaced 1[ABCDEFG] with 1 to resolve manpage section mismatches 
+   (issue #5)
+   * restricted man page installation to binaries that get installed 
+   (instead of everything from the man/man1 source directory)
+   * removed verbose echo statements from clean targets
+   
  -- Michael Chaberski <mchaberski+dev@gmail.com>  Mon, 16 Dec 2013 10:28:15 -0500
