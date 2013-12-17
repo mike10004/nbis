@@ -101,7 +101,7 @@ install:
 	$(INSTALL_BIN) $(INSTALL_BIN_DIR)/$(PROGRAM) $(INSTALL_ROOT_BIN_DIR)
 #
 clean:
-	@echo "$(RM) $(OBJDIR)/*"
+#	@echo "$(RM) $(OBJDIR)/*"
 	@for objfile in $(OBJFILES); do \
 		$(RM) $$objfile; \
 	done; \

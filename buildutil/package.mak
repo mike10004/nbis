@@ -230,13 +230,13 @@ install:
 clean:
 	@(cd $(DIR_SRC) && $(MAKE) clean) || exit 1
 	@if [ $(PACKAGE) != "ijg" ]; then \
-		echo "$(RM) $(INSTALL_LIB_DIR)/*"; \
+#		echo "$(RM) $(INSTALL_LIB_DIR)/*"; \
 		for lib in $(LIBRARY_NAMES); do \
 			$(RM) $(INSTALL_LIB_DIR)/$$lib; \
 		done; \
 	fi
 	@if [ $(PACKAGE) != "commonnbis" ]; then \
-		echo "$(RM) $(INSTALL_BIN_DIR)/*"; \
+#		echo "$(RM) $(INSTALL_BIN_DIR)/*"; \
 		for prog in $(PROGRAMS); do \
 			$(RM) $(INSTALL_BIN_DIR)/$$prog; \
 		done; \

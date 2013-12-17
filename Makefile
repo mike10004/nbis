@@ -266,9 +266,9 @@ install-runtimedata:
 clean:
 	$(RM) $(DOC_CATS_DIR)/*txt
 	@for package in $(PACKAGES); do \
-		echo "Start: Cleaning up $$package...."; \
+#		echo "Start: Cleaning up $$package...."; \
 		(cd $(DIR_ROOT)/$$package && $(MAKE) clean) || exit 1; \
-		echo "End: Cleaning up $$package."; \
+		echo "Cleaned $$package."; \
 	done
 	@find * -type f -name "*.d" -delete
 	$(RM) -r exports doc/catalogs

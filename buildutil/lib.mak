@@ -114,7 +114,7 @@ install:
 	$(INSTALL_LIB) $(INSTALL_LIB_DIR)/$(LIBRARY).a $(INSTALL_ROOT_LIB_DIR)
 #
 clean:
-	@echo "$(RM) $(OBJDIR)/*.o"
+#	@echo "$(RM) $(OBJDIR)/*.o"
 	@for objfile in $(OBJFILES); do \
 		$(RM) $$objfile; \
 	done; \
