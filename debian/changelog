@@ -50,6 +50,6 @@ nbis (4.2.0-1) unstable; urgency=low
    removes support for JPEG-Baseline, a popular image format, but the 
    lintian error (tag embedded-library) would have caused a build 
    failure on Launchpad
-   * Initial release (Closes #12)
+   * Initial release (Closes: #12)
 
  -- Michael Chaberski <mchaberski+dev@gmail.com>  Mon, 16 Dec 2013 10:28:15 -0500
