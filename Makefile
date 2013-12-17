@@ -238,10 +238,11 @@ install-bins:
 	@echo "End: Installing binaries"
 
 install-man:
-	@echo "Start: Copying manual directory to \"$(INSTALL_ROOT_MAN_DIR)\"...."
+	@echo "Start: Installing man pages to \"$(INSTALL_ROOT_MAN_DIR)\"...."
 	$(MKDIR_P) $(INSTALL_ROOT_MAN_DIR)
-	$(INSTALL_CMD) -m0644 -t $(INSTALL_ROOT_MAN_DIR) $(MAN_DIR)/man1/* || exit 1
-	@echo "End: Copying manual directory to \"$(INSTALL_ROOT_MAN_DIR)\"."
+	@cd $(MAN_DIR)
+	$(INSTALL_CMD) -m0644 -t $(INSTALL_ROOT_MAN_DIR) $(MAN_PAGES) || exit 1
+	@echo "End: Installing man pages to \"$(INSTALL_ROOT_MAN_DIR)\"."
 
 install-runtimedata:
 	@echo "Start: Copying runtime data directories to \"$(INSTALL_RUNTIME_DATA_DIR)\"...."

@@ -200,3 +200,5 @@ MKDIR		:= $(shell which mkdir)
 TOUCH		:= $(shell which touch)
 AR		:= $(shell which ar)
 #
+
+MAN_PAGES := cmbmcs.1 mlp.1 nfseg.1 chgdesc.1 datainfo.1 mktran.1 sd_rfmt.1 iaf2an2k.1 asc2bin.1 diffbyts.1 djpegl.1 znormpat.1 kltran.1 intr2not.1 optrwsgw.1 rwpics.1 rdwsqcom.1 djpeglsd.1 mkoas.1 optrws.1 optosf.1 cropcoeff.1 an2k2txt.1 an2ktool.1 bozorth3.1 lintran.1 dwsq.1 dlwsqcom.1 cjpegl.1 histogen.1 mindtct.1 fixwts.1 chkan2k.1 rgb2ycc.1 mlpfeats.1 an2k2iaf.1 stackms.1 pcasys.1 cwsq.1 txt2an2k.1 bin2asc.1 wrwsqcom.1 fing2pat.1 ycc2rgb.1 nfiq.1 meancov.1 dwsq14.1 not2intr.1 eva_evt.1 oas2pics.1 znormdat.1
