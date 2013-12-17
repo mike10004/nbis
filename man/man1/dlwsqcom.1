@@ -1,0 +1,31 @@
+.\" @(#)dlwsqcom.1 2008/10/02 NIST
+.\" I Image Group
+.\" Craig Watson
+.\"
+.TH RDWSQCOM 1G "02 October 2008" "NIST" "NBIS Reference Manual"
+.SH NAME
+dlwsqcom \- deletes all comments from a WSQ-encoded image file
+.SH SYNOPSIS
+.B dlwsqcom
+.I <image file>
+
+.SH DESCRIPTION
+.B dlwsqcom
+takes as input a file containing a WSQ-compressed image, and deletes
+any and all comment blocks.  Comments can be read from and written to
+a WSQ file by using the \fBrdwsqcom\fR and \fBwrwsqcom\fR commands.
+
+.SH OPTIONS
+.TP
+.I <image file>
+the input WSQ file from which comments are to be deleted.
+.TP
+\fB-version
+\fRPrint ANSI/NIST stardand and NBIS software version.
+
+.SH SEE ALSO
+.BR cwsq (1),
+.BR wrwsqcom (1)
+
+.SH AUTHOR
+NIST/ITL/DIV894/Image Group
