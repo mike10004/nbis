@@ -1,0 +1,2 @@
+version=3
+http://nigos.nist.gov:8080/nist/nbis/ nbis_(.+)\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz)))
